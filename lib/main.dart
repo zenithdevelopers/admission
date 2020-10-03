@@ -21,31 +21,34 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         title: 'Admission Process',
         debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            // title: Image.asset('assets/college_logo.png', fit: BoxFit.cover,height: 150.0, width: 248.0,),
-            // centerTitle: true,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset('assets/college_logo_kannada.png', height: 50, width: 100,),
-                Image.asset('assets/college_logo_middle.png', height: 70, width: 60,),
-                Image.asset('assets/college_logo_title.png', height: 50, width: 100,),
-                Expanded(child: SizedBox(width: 1.0,)),
-                Expanded(child: SizedBox(width: 1.0,)),
-                Text('Application Form', style: TextStyle(color: Colors.black),),
-                IconButton(icon: Icon(Icons.assignment), onPressed: null, padding: EdgeInsets.fromLTRB(0, 6, 0, 0),),
-                Expanded(child: SizedBox(width: 1.0,)),
-                Expanded(child: SizedBox(width: 1.0,)),
-                Expanded(child: SizedBox(width: 1.0,)),
-              ],
-            ),
-            backgroundColor: Colors.grey.shade300,
-            toolbarHeight: 100.0,
-          ),
-          body: MyStepper(),
-        ));
+        home: Zoom(
+            height: 670,
+            width: 1370,
+            child: Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                // title: Image.asset('assets/college_logo.png', fit: BoxFit.cover,height: 150.0, width: 248.0,),
+                // centerTitle: true,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.asset('assets/college_logo_kannada.png', height: 50, width: 100,),
+                    Image.asset('assets/college_logo_middle.png', height: 70, width: 60,),
+                    Image.asset('assets/college_logo_title.png', height: 50, width: 100,),
+                    Expanded(child: SizedBox(width: 1.0,)),
+                    Expanded(child: SizedBox(width: 1.0,)),
+                    Text('Application Form', style: TextStyle(color: Colors.black),),
+                    IconButton(icon: Icon(Icons.assignment), onPressed: null, padding: EdgeInsets.fromLTRB(0, 6, 0, 0),),
+                    Expanded(child: SizedBox(width: 1.0,)),
+                    Expanded(child: SizedBox(width: 1.0,)),
+                    Expanded(child: SizedBox(width: 1.0,)),
+                  ],
+                ),
+                backgroundColor: Colors.grey.shade300,
+                toolbarHeight: 100.0,
+              ),
+              body: MyStepper(),
+            )));
   }
 }
 

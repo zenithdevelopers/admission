@@ -8,7 +8,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:zoom_widget/zoom_widget.dart';
 
 import 'custom_stepper.dart';
 
@@ -34,34 +33,28 @@ class _MyStepperState extends State<MyStepper> {
 
   @override
   Widget build(BuildContext context) {
-    return Zoom(
-      height: 670,
-      width: 1370,
-      zoomSensibility: 5,
-      centerOnScale: false,
-      child: Container(
-        margin: EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: Stack(
-                children: [
-                  CustomStepper(
-                    type: CustomStepperType.horizontal,
-                    steps: steps,
-                    currentStep: currentStep,
-                    onStepContinue: next,
-                    // onStepTapped: (step) => goTo(step),
-                    onStepCancel: cancel,
-                  ),
-                  _isVisible
-                      ? Center(child: CircularProgressIndicator())
-                      : Container()
-                ],
-              ),
+    return Container(
+      margin: EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          Expanded(
+            child: Stack(
+              children: [
+                CustomStepper(
+                  type: CustomStepperType.horizontal,
+                  steps: steps,
+                  currentStep: currentStep,
+                  onStepContinue: next,
+                  // onStepTapped: (step) => goTo(step),
+                  onStepCancel: cancel,
+                ),
+                _isVisible
+                    ? Center(child: CircularProgressIndicator())
+                    : Container()
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
