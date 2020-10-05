@@ -12,16 +12,16 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'custom_stepper.dart';
 
 class MyStepper extends StatefulWidget {
+  final Size mediaSize;
+  MyStepper({this.mediaSize});
   @override
   _MyStepperState createState() => _MyStepperState();
 }
 
 class _MyStepperState extends State<MyStepper> {
-
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   bool _isVisible = false;
-
   FToast fToast;
 
   @override
@@ -34,7 +34,7 @@ class _MyStepperState extends State<MyStepper> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16.0),
+      margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Column(
         children: [
           Expanded(
@@ -59,7 +59,6 @@ class _MyStepperState extends State<MyStepper> {
     );
   }
 
-
   int selectedIndex = 0;
 
   int currentStep = 0;
@@ -71,20 +70,24 @@ class _MyStepperState extends State<MyStepper> {
         _isVisible = true;
       });
       if (reviewValidator(context)) {
-        firestore.collection('Applicant Details')
+        firestore
+            .collection('Applicant Details')
             .add(Global.details.toMap())
             .whenComplete(() =>
-            Navigator.of(context, rootNavigator: true).pushReplacement(
-              CupertinoPageRoute<bool>(
-                fullscreenDialog: true, builder: (BuildContext context) {
-                _isVisible = false;
-                return SubmittedView();
-              },
-              ),
-            ));
+                Navigator.of(context, rootNavigator: true).pushReplacement(
+                  CupertinoPageRoute<bool>(
+                    fullscreenDialog: true,
+                    builder: (BuildContext context) {
+                      _isVisible = false;
+                      return SubmittedView();
+                    },
+                  ),
+                ));
       }
     } else {
-      currentStep + 1 != steps.length ? goTo(currentStep + 1) : setState(() => complete = true);
+      currentStep + 1 != steps.length
+          ? goTo(currentStep + 1)
+          : setState(() => complete = true);
     }
   }
 
@@ -143,24 +146,39 @@ class _MyStepperState extends State<MyStepper> {
 
   List<CustomStep> steps = [
     CustomStep(
-      title: Text('Personal Details'),
+      title: Text(
+        'Personal Details',
+        style: TextStyle(fontSize: 14),
+      ),
       isActive: true,
-      content: PersonalDetails(),
+      content: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: PersonalDetails(),
+      ),
     ),
     CustomStep(
       title: Text('Parent Details'),
       isActive: false,
-      content: ParentDetails(),
+      content: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: ParentDetails(),
+      ),
     ),
     CustomStep(
       title: Text('Documents'),
       isActive: false,
-      content: DocumentsView(),
+      content: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: DocumentsView(),
+      ),
     ),
     CustomStep(
       title: Text('Review'),
       isActive: false,
-      content: ReviewView(),
+      content: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: ReviewView(),
+      ),
     )
   ];
 
@@ -184,7 +202,8 @@ class _MyStepperState extends State<MyStepper> {
     }
     if (Global.details.getPlaceOfBirth() == 'placeOfBirth not set') {
       setState(() {
-        showToast('Place of Birth not set can not be empty, Enter Place of Birth');
+        showToast(
+            'Place of Birth not set can not be empty, Enter Place of Birth');
         val = false;
         _isVisible = false;
         goTo(0);
@@ -246,9 +265,11 @@ class _MyStepperState extends State<MyStepper> {
         goTo(0);
       });
     }
-    if (Global.details.getCategoryOfAdmission() == 'categoryOfAdmission not set') {
+    if (Global.details.getCategoryOfAdmission() ==
+        'categoryOfAdmission not set') {
       setState(() {
-        showToast('Category of Admission can not be empty, Choose Category of Admission');
+        showToast(
+            'Category of Admission can not be empty, Choose Category of Admission');
         val = false;
         _isVisible = false;
         goTo(0);
@@ -262,9 +283,11 @@ class _MyStepperState extends State<MyStepper> {
         goTo(1);
       });
     }
-    if (Global.details.getFatherMobileNumber() == 'fatherMobileNumber not set') {
+    if (Global.details.getFatherMobileNumber() ==
+        'fatherMobileNumber not set') {
       setState(() {
-        showToast('Father Mobile Number can not be empty, Enter Father Mobile Number');
+        showToast(
+            'Father Mobile Number can not be empty, Enter Father Mobile Number');
         val = false;
         _isVisible = false;
         goTo(1);
@@ -288,7 +311,8 @@ class _MyStepperState extends State<MyStepper> {
     }
     if (Global.details.getFatherOccupation() == 'fatherOccupation not set') {
       setState(() {
-        showToast('Father Occupation can not be empty, Enter Father Occupation');
+        showToast(
+            'Father Occupation can not be empty, Enter Father Occupation');
         val = false;
         _isVisible = false;
         goTo(1);
@@ -310,9 +334,11 @@ class _MyStepperState extends State<MyStepper> {
         goTo(1);
       });
     }
-    if (Global.details.getMotherMobileNumber() == 'motherMobileNumber not set') {
+    if (Global.details.getMotherMobileNumber() ==
+        'motherMobileNumber not set') {
       setState(() {
-        showToast('Mother Mobile Number can not be empty, Enter Mother Mobile Number');
+        showToast(
+            'Mother Mobile Number can not be empty, Enter Mother Mobile Number');
         val = false;
         _isVisible = false;
         goTo(1);
@@ -336,7 +362,8 @@ class _MyStepperState extends State<MyStepper> {
     }
     if (Global.details.getMotherOccupation() == 'motherOccupation not set') {
       setState(() {
-        showToast('Mother Occupation can not be empty, Enter Mother Occupation');
+        showToast(
+            'Mother Occupation can not be empty, Enter Mother Occupation');
         val = false;
         _isVisible = false;
         goTo(1);
@@ -374,17 +401,21 @@ class _MyStepperState extends State<MyStepper> {
         goTo(0);
       });
     }
-    if (Global.details.getCourseInPreviousCollege() == 'courseInPreviousCollege not set') {
+    if (Global.details.getCourseInPreviousCollege() ==
+        'courseInPreviousCollege not set') {
       setState(() {
-        showToast('Course In Previous College can not be empty, Enter Course In Previous College');
+        showToast(
+            'Course In Previous College can not be empty, Enter Course In Previous College');
         val = false;
         _isVisible = false;
         goTo(0);
       });
     }
-    if (Global.details.getMarksInPreviousCollege() == 'marksInPreviousCollege not set') {
+    if (Global.details.getMarksInPreviousCollege() ==
+        'marksInPreviousCollege not set') {
       setState(() {
-        showToast('Marks in Previous College can not be empty, Enter Marks in Previous College');
+        showToast(
+            'Marks in Previous College can not be empty, Enter Marks in Previous College');
         val = false;
         _isVisible = false;
         goTo(0);
@@ -414,9 +445,11 @@ class _MyStepperState extends State<MyStepper> {
         goTo(0);
       });
     }
-    if (Global.details.getDateOfBirthDocument() == 'dateOfBirthDocument not set') {
+    if (Global.details.getDateOfBirthDocument() ==
+        'dateOfBirthDocument not set') {
       setState(() {
-        showToast('Date of Birth Document can not be empty, Upload Date of Birth Document');
+        showToast(
+            'Date of Birth Document can not be empty, Upload Date of Birth Document');
         val = false;
         _isVisible = false;
         goTo(2);
@@ -448,7 +481,8 @@ class _MyStepperState extends State<MyStepper> {
     }
     if (Global.details.getTwelfthMarkSheet() == 'twelfthMarkSheet not set') {
       setState(() {
-        showToast('Twelfth Mark Sheet can not be empty, Upload Twelfth Mark Sheet');
+        showToast(
+            'Twelfth Mark Sheet can not be empty, Upload Twelfth Mark Sheet');
         val = false;
         _isVisible = false;
         goTo(2);
@@ -470,9 +504,11 @@ class _MyStepperState extends State<MyStepper> {
         goTo(2);
       });
     }
-    if (Global.details.getTransferCertificate() == 'transferCertificate not set') {
+    if (Global.details.getTransferCertificate() ==
+        'transferCertificate not set') {
       setState(() {
-        showToast('Transfer Certificate can not be empty, Upload Transfer Certificate');
+        showToast(
+            'Transfer Certificate can not be empty, Upload Transfer Certificate');
         val = false;
         _isVisible = false;
         goTo(2);
@@ -486,9 +522,11 @@ class _MyStepperState extends State<MyStepper> {
         goTo(2);
       });
     }
-    if (Global.details.getCitizenProofIfForeigner() == 'citizenProofIfForeigner not set') {
+    if (Global.details.getCitizenProofIfForeigner() ==
+        'citizenProofIfForeigner not set') {
       setState(() {
-        showToast('Nationality Proof can not be empty, Upload Nationality Proof');
+        showToast(
+            'Nationality Proof can not be empty, Upload Nationality Proof');
         val = false;
         _isVisible = false;
         goTo(2);
@@ -515,15 +553,20 @@ class _MyStepperState extends State<MyStepper> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.warning_amber_outlined, color: Colors.yellow,),
+          Icon(
+            Icons.warning_amber_outlined,
+            color: Colors.yellow,
+          ),
           SizedBox(
             width: 12.0,
           ),
-          Text(message, style: TextStyle(color: Colors.white),),
+          Text(
+            message,
+            style: TextStyle(color: Colors.white),
+          ),
         ],
       ),
     );
-
 
     fToast.showToast(
       child: toast,
